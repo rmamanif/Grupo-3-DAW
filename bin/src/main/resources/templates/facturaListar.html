@@ -108,38 +108,40 @@ h2 a {
 </style>
 <body>
 <nav th:replace="/layout/template :: navegacion"></nav>
-
-
 	<br><br>
 <div class="container">
-	<h2>Lista de Clientes</h2>
+	<h2>Lista de faturas</h2>
 	
 	<table class="container" style="text-align: center;">
 		<thead>
 								<tr>
 									<th scope="col">ID</th>
-									<th scope="col">NOMBRES</th>
-									<th scope="col">TELEFONO</th>
-									<th scope="col">DIRECCION</th>
+									<th scope="col">ID CLIENTE</th>
+									<th scope="col">FECHA</th>
+									<th scope="col">SUB TOTAL</th>
+									<th scope="col">IGV</th>
+									<th scope="col">TOTAL</th>
 									<th scope="col">EDITAR</th>
 									<th scope="col">ELIMINAR</th>
 								</tr>
 		</thead>
 		<tbody>
-								<tr th:each="proveedor : ${proveedores}">
-									<td scope="row" th:text="${proveedor.id}"></td>
-									<td th:text="${proveedor.nempresa}"></td>
-									<td th:text="${proveedor.telefono}"></td>
-									<td th:text="${proveedor.direccion}"></td>
+								<tr th:each="factura : ${facturas}">
+									<td scope="row" th:text="${factura.id}"></td>
+									<td th:text="${factura.idc}"></td>
+									<td th:text="${factura.fecha}"></td>
+									<td th:text="${factura.stotal}"></td>
+									<td th:text="${factura.igv}"></td>
+									<td th:text="${factura.total}"></td>
 									<td><a class="btn btn-info"
-										th:href="@{/proveedores/form/} +${proveedor.id}" th:text="Editar"></a></td>
+										th:href="@{/facturas/form/} +${factura.id}" th:text="Editar"></a></td>
 									<td><a class="btn btn-danger"
-										th:href="@{/proveedores/eliminar/} +${proveedor.id}" th:text="Eliminar" onclick="return confirm('Estas seguro de eliminar')"></a></td>
+										th:href="@{/facturas/eliminar/} +${factura.id}" th:text="Eliminar" onclick="return confirm('Estas seguro de eliminar')"></a></td>
 								</tr>
 		</tbody>
 	</table>
 	
-	<a  href="/proveedores/form"><button style="margin-top:4%; margin-left: 45%"  class="btn btn-secondary btn-sm">Registrar Proveedor</button></a>
+	<a  href="/facturas/form"><button style="margin-top:4%; margin-left: 45%"  class="btn btn-secondary btn-sm">Añadir un factura</button></a>
 </div>
 </body>
 </html>

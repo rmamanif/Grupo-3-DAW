@@ -107,39 +107,42 @@ h2 a {
 }
 </style>
 <body>
-<nav th:replace="/layout/template :: navegacion"></nav>
-
-
+	<nav th:replace="/layout/template :: navegacion"></nav>
 	<br><br>
 <div class="container">
 	<h2>Lista de Clientes</h2>
 	
 	<table class="container" style="text-align: center;">
 		<thead>
-								<tr>
-									<th scope="col">ID</th>
-									<th scope="col">NOMBRES</th>
-									<th scope="col">TELEFONO</th>
-									<th scope="col">DIRECCION</th>
-									<th scope="col">EDITAR</th>
-									<th scope="col">ELIMINAR</th>
-								</tr>
+			<tr>
+				<th scope="col">ID</th>
+				<th scope="col">NOMBRES</th>
+				<th scope="col">APELLIDOS</th>
+				<th scope="col">DNI</th>
+				<th scope="col">TELEFONO</th>
+				<th scope="col">DIRECCION</th>
+				<th scope="col">EDITAR</th>
+				<th scope="col">ELIMINAR</th>
+			</tr>
 		</thead>
 		<tbody>
-								<tr th:each="proveedor : ${proveedores}">
-									<td scope="row" th:text="${proveedor.id}"></td>
-									<td th:text="${proveedor.nempresa}"></td>
-									<td th:text="${proveedor.telefono}"></td>
-									<td th:text="${proveedor.direccion}"></td>
-									<td><a class="btn btn-info"
-										th:href="@{/proveedores/form/} +${proveedor.id}" th:text="Editar"></a></td>
-									<td><a class="btn btn-danger"
-										th:href="@{/proveedores/eliminar/} +${proveedor.id}" th:text="Eliminar" onclick="return confirm('Estas seguro de eliminar')"></a></td>
-								</tr>
+			<tr th:each="cliente : ${clientes}">
+				<td scope="row" th:text="${cliente.id}"></td>
+				<td th:text="${cliente.nombres}"></td>
+				<td th:text="${cliente.apellidos}"></td>
+				<td th:text="${cliente.dni}"></td>
+				<td th:text="${cliente.telefono}"></td>
+				<td th:text="${cliente.direccion}"></td>
+				<td><a class="btn btn-info" th:href="@{/clientes/form/} +${cliente.id}" th:text="Editar"></a></td>
+				<td><a class="btn btn-danger" th:href="@{/clientes/eliminar/} +${cliente.id}" th:text="Eliminar" onclick="return confirm('Estas seguro de eliminar')"></a></td>
+			</tr>
 		</tbody>
 	</table>
 	
-	<a  href="/proveedores/form"><button style="margin-top:4%; margin-left: 45%"  class="btn btn-secondary btn-sm">Registrar Proveedor</button></a>
+	<a  href="/clientes/form"><button style="margin-top:4%; margin-left: 45%"  class="btn btn-secondary btn-sm">Registrar Cliente</button></a>
 </div>
 </body>
 </html>
+
+
+

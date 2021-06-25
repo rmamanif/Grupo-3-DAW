@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import aplicaciones.spring.modelo.DetFactura;
-
+import aplicaciones.spring.servicios.ClienteService;
 import aplicaciones.spring.servicios.DetFacturaService;
 import aplicaciones.spring.servicios.FacturaService;
 import aplicaciones.spring.servicios.ProductoService;
@@ -33,6 +33,10 @@ public class DetFacturaController {
 	@Autowired
 	@Qualifier("producto")
 	ProductoService productoService;
+	
+	@Autowired
+	@Qualifier("cliente")
+	ClienteService clienteService;
 
 	@RequestMapping("/listar")
 	public String listar(Model model) {
@@ -104,6 +108,11 @@ public class DetFacturaController {
 
 	@RequestMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable("id") Long id) {
+		var resti=detfacturaService.buscar(id);
+		resti.getCantidad();
+		var rprod=productoService.buscar(resti.getProducto());
+		int backstock=rprod.getStock()+resti.getCantidad();
+		rprod.setStock(backstock);
 		detfacturaService.eliminar(id);
 		return "redirect:/detfacturas/listar";
 	}

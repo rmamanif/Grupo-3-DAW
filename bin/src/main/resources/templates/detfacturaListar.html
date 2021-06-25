@@ -108,38 +108,40 @@ h2 a {
 </style>
 <body>
 <nav th:replace="/layout/template :: navegacion"></nav>
-
-
 	<br><br>
 <div class="container">
-	<h2>Lista de Clientes</h2>
+	<h2>Lista de detalles de las faturas</h2>
 	
 	<table class="container" style="text-align: center;">
 		<thead>
 								<tr>
 									<th scope="col">ID</th>
-									<th scope="col">NOMBRES</th>
-									<th scope="col">TELEFONO</th>
-									<th scope="col">DIRECCION</th>
+									<th scope="col">ID FACTURA</th>
+									<th scope="col">PRODUCTO</th>
+									<th scope="col">CANTIDAD</th>
+									<th scope="col">COSTO</th>
 									<th scope="col">EDITAR</th>
 									<th scope="col">ELIMINAR</th>
 								</tr>
 		</thead>
 		<tbody>
-								<tr th:each="proveedor : ${proveedores}">
-									<td scope="row" th:text="${proveedor.id}"></td>
-									<td th:text="${proveedor.nempresa}"></td>
-									<td th:text="${proveedor.telefono}"></td>
-									<td th:text="${proveedor.direccion}"></td>
+								<tr th:each="detfactura : ${detfacturas}">
+									<td scope="row" th:text="${detfactura.id}"></td>
+									<td th:text="${detfactura.idf}"></td>
+									<td th:text="${detfactura.producto}"></td>
+									<td th:text="${detfactura.cantidad}"></td>
+									<td th:text="${detfactura.precio}"></td>
 									<td><a class="btn btn-info"
-										th:href="@{/proveedores/form/} +${proveedor.id}" th:text="Editar"></a></td>
+										th:href="@{/detfacturas/form/} +${detfactura.id}" th:text="Editar"></a></td>
 									<td><a class="btn btn-danger"
-										th:href="@{/proveedores/eliminar/} +${proveedor.id}" th:text="Eliminar" onclick="return confirm('Estas seguro de eliminar')"></a></td>
+										th:href="@{/detfacturas/eliminar/} +${detfactura.id}" th:text="Eliminar" onclick="return confirm('Estas seguro de eliminar')"></a></td>
 								</tr>
 		</tbody>
 	</table>
 	
-	<a  href="/proveedores/form"><button style="margin-top:4%; margin-left: 45%"  class="btn btn-secondary btn-sm">Registrar Proveedor</button></a>
+	<a  href="/detfacturas/form"><button style="margin-top:4%; margin-left: 41%"  class="btn btn-secondary btn-sm">Añadir un producto a la factura</button></a>
 </div>
+
+
 </body>
 </html>
