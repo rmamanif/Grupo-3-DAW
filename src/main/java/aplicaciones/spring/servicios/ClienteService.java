@@ -1,7 +1,6 @@
 package aplicaciones.spring.servicios;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import aplicaciones.spring.modelo.Cliente;
 import aplicaciones.spring.repositorios.ICliente;
@@ -16,14 +15,11 @@ public class ClienteService {
 		 return iCliente.findAll();
 	}	
 	
-	@Query("select p.id from CLIENTES")
-	public List<Cliente> listar2 (){
-		 return iCliente.findAll();
-	}
-	
 	public  Cliente buscar(Long id) {
 		return  iCliente.findById(id);
 	}	
+	
+	
 	public boolean eliminar (Long id) {
 		try {
 			iCliente.delete(iCliente.findById(id));

@@ -81,8 +81,8 @@ public class VentaController {
 	@RequestMapping("/form/{id}")
 	public String actualizar (@PathVariable("id") Long id,Model model) {
 		model.addAttribute("venta",ventaService.buscar(id));
-		model.addAttribute("productos", productoService.listar2());
-		model.addAttribute("clientes", clienteService.listar2());
+		model.addAttribute("productos", productoService.listar());
+		model.addAttribute("clientes", clienteService.listar());
 		model.addAttribute("btn","Actualiza Registro");
 		return "ventaForm";
 	}

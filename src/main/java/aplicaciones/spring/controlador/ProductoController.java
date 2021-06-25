@@ -1,6 +1,6 @@
 package aplicaciones.spring.controlador;
 import java.util.List;
-import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import aplicaciones.spring.modelo.Producto;
 import aplicaciones.spring.servicios.ProductoService;
+import aplicaciones.spring.servicios.ProveedorService;
 @Controller
 @RequestMapping("/productos")
 @SessionAttributes("producto")
@@ -20,6 +21,11 @@ public class ProductoController {
 	@Autowired
 	@Qualifier("producto")
 	ProductoService productoService;
+	
+	@Autowired
+	@Qualifier("proveedor")
+	ProveedorService proveedorService;
+	
 	
 	@RequestMapping("/listar")
 	public String listar(Model model) {
@@ -30,10 +36,11 @@ public class ProductoController {
 	}
 	
 	@RequestMapping("/form")
-	public String formulario (Map<String, Object> model) {
+	public String formulario (Model model) {
 		Producto producto = new Producto();
-		model.put("producto",producto);
-		model.put("btn", "Crear Producto");
+		model.addAttribute("producto",producto);
+		model.addAttribute("proveedores", proveedorService.listar());
+		model.addAttribute("btn", "Crear Producto");
 		return "productoForm";
 	}
 	
@@ -45,7 +52,16 @@ public class ProductoController {
 	}
 	
 	@RequestMapping(value="/insertar",method=RequestMethod.POST)
-	public String guardar(@Validated Producto producto,BindingResult result,Model model) {		
+	public String guardar(@Validated Producto producto,BindingResult result,Model model) {
+		
+		if(producto.getIdpvd() == null ) {
+			model.addAttribute("ERROR","Por favor añada un proveedor para el producto.");
+			producto = new Producto();
+			model.addAttribute("producto",producto);
+			model.addAttribute("btn","Crear Producto");
+			return "productoForm";
+		}
+		
 		if(result.hasErrors()) {
 			model.addAttribute("ERROR","Error al enviar registro");
 			producto = new Producto();
