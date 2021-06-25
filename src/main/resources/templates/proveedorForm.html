@@ -2,13 +2,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head  th:replace="/layout/template :: header" >
 </head>
+<style>
+html {
+  height: 150%;
+}
+body {
+  margin:0;
+  padding:0;
+  font-family: sans-serif;
+  background: linear-gradient(#141e30, #243b55);
+}
+h2{
+	color: white;
+}
+.form{
+	border-radius: 10px;
+}
+
+form{
+	background: #0c121c;
+	color: #03e9f4;
+  font-size: 15px;
+}
+.card{
+	background: #0c121c;
+	
+}
+
+
+</style>
 <body>
+			<nav th:replace="/layout/template :: navegacion"></nav>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-12">
-			<nav th:replace="/layout/template :: navegacion"></nav>
+		<div style="margin-top: 5%;margin-left: 35%; margin-bottom: 5%;" class="col-4">
+	
 			<div class="card">
-				<div class="card-header" ></div>
+				<div class="card-header" >  <h2 style="text-align: center;">Proveedores</h2></div>
 				<div class="card-body">
 				<h3 th:if="ERROR!=null" th:text="${ERROR}" style="color:red"></h3>
 					<form th:action="@{/proveedores/insertar}" th:object="${proveedor}" method="POST">
@@ -26,7 +56,9 @@
 							<input type="text" class="form-control" th:field="*{direccion}" name="direccion">
 						</div>
 						
-						<input type="submit" th:value="${btn}" class="btn btn-primary">
+						<div style="text-align: center; margin-top: 45px; margin-bottom: 45px;">
+						<input type="submit" th:value="${btn}" class="btn btn-info">
+						</div>
 					</form>
 				</div>
 			</div>
