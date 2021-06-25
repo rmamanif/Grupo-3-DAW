@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="/layout/template :: header" >
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-12">
+			<nav th:replace="/layout/template :: navegacion"></nav>
+			<div class="card">
+				<div class="card-header" ></div>
+				<div class="card-body">
+				<h3 th:if="ERROR!=null" th:text="${ERROR}" style="color:red"></h3>
+					<form th:action="@{/facturas/insertar}" th:object="${factura}" method="POST">
+						<div class="form-group">
+							<label for="id">Cliente</label> 
+							<select th:field="*{idc}" class="form-control">
+		                         <option value=""> -- </option>
+		                         <option  th:each="cliente : ${clientes}" th:value="${cliente.id}" th:text="'ID: '+${cliente.id}+' Nombre: '+${cliente.nombres}+' Apellido '+${cliente.apellidos} "/>
+		                  	</select>
+						</div>
+						<input type="submit" th:value="${btn}" class="btn btn-primary">
+					</form>
+				</div>
+			</div>
+		</div>		
+	</div>
+</div>
+</body>
+</html>

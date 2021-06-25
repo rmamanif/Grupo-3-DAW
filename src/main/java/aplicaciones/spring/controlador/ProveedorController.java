@@ -1,7 +1,6 @@
 package aplicaciones.spring.controlador;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,10 +34,10 @@ public class ProveedorController {
 	}
 	
 	@RequestMapping("/form")
-	public String formulario (Map<String, Object> model) {
+	public String formulario (Model model) {
 		Proveedor proveedor = new Proveedor();
-		model.put("proveedor",proveedor);
-		model.put("btn", "Crear Proveedor");
+		model.addAttribute("proveedor",proveedor);
+		model.addAttribute("btn", "Crear Proveedor");
 		return "proveedorForm";
 	}
 	

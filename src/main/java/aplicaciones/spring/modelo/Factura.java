@@ -37,8 +37,6 @@ public class Factura implements Serializable {
 		super();
 	}
 
-	
-
 	public Factura(Long id, Long idc, Date fecha, Double stotal, Double igv, Double total) {
 		super();
 		this.id = id;
@@ -48,6 +46,10 @@ public class Factura implements Serializable {
 		this.igv = igv;
 		this.total = total;
 	}
+
+
+
+
 
 
 

@@ -38,10 +38,14 @@ public class ProductoController {
 	@RequestMapping("/form")
 	public String formulario (Model model) {
 		Producto producto = new Producto();
+		if(proveedorService.listar().isEmpty()) {
+			return "redirect:/proveedores/form";
+		}else {
 		model.addAttribute("producto",producto);
 		model.addAttribute("proveedores", proveedorService.listar());
 		model.addAttribute("btn", "Crear Producto");
 		return "productoForm";
+		}
 	}
 	
 	@RequestMapping("/form/{id}")

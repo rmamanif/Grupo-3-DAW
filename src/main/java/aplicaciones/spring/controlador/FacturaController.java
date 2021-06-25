@@ -10,11 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import aplicaciones.spring.modelo.Factura;
+import aplicaciones.spring.servicios.ClienteService;
 import aplicaciones.spring.servicios.FacturaService;
 
 @Controller
@@ -25,6 +27,9 @@ public class FacturaController {
 	@Autowired
 	@Qualifier("factura")
 	FacturaService facturaService;
+	@Autowired
+	@Qualifier("cliente")
+	ClienteService clienteService;
 	
 	@RequestMapping("/listar")
 	public String listar(Model model) {
@@ -35,11 +40,16 @@ public class FacturaController {
 	}
 	
 	@RequestMapping("/form")
-	public String formulario (Map<String, Object> model) {
-		Factura factura = new Factura();
-		model.put("factura",factura);
-		model.put("btn", "Crear Factura");
+	public String formulario (Model model) {
+		var factura = new Factura();
+		if(clienteService.listar().isEmpty()) {
+			return "redirect:/clientes/form";
+		}else {
+		model.addAttribute("factura",factura);
+		model.addAttribute("clientes",clienteService.listar());
+		model.addAttribute("btn", "Crear Factura");
 		return "facturaForm";
+		}
 	}
 	
 	@RequestMapping("/form/{id}")
@@ -49,7 +59,7 @@ public class FacturaController {
 		return "facturaForm";
 	}
 	
-	@RequestMapping(value="/insertar",method=RequestMethod.POST)
+	@PostMapping(value="/insertar")
 	public String guardar(@Validated Factura factura,BindingResult result,Model model) {		
 		if(result.hasErrors()) {
 			model.addAttribute("ERROR","Error al enviar registro");
@@ -58,6 +68,9 @@ public class FacturaController {
 			model.addAttribute("btn","Crear Factura");
 			return "facturaForm";
 		}else {
+		factura.setStotal(0.0);
+		factura.setIgv(0.0);
+		factura.setTotal(0.0);
 		facturaService.guardar(factura);
 		return "redirect:/facturas/listar";
 		}

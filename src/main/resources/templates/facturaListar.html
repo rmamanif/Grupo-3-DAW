@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout/template :: header">
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<nav th:replace="/layout/template :: navegacion"></nav>
+			<div class="card mt-5">
+				<div class="card-header"></div>
+				<div class="card-body">
+			<a class="btn btn-primary" href="/facturas/form">Añadir una factura</a>
+						<table class="table mt-3">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">ID</th>
+									<th scope="col">ID CLIENTE</th>
+									<th scope="col">FECHA</th>
+									<th scope="col">SUB TOTAL</th>
+									<th scope="col">IGV</th>
+									<th scope="col">TOTAL</th>
+									<th scope="col">EDITAR</th>
+									<th scope="col">ELIMINAR</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="factura : ${facturas}">
+									<th scope="row" th:text="${factura.id}"></th>
+									<td th:text="${factura.idc}"></td>
+									<td th:text="${factura.fecha}"></td>
+									<td th:text="${factura.stotal}"></td>
+									<td th:text="${factura.igv}"></td>
+									<td th:text="${factura.total}"></td>
+									<td><a class="btn btn-warning"
+										th:href="@{/facturas/form/} +${factura.id}" th:text="Editar"></a></td>
+									<td><a class="btn btn-danger"
+										th:href="@{/facturas/eliminar/} +${factura.id}" th:text="Eliminar" onclick="return confirm('Estas seguro de eliminar')"></a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+			</div>
+		</div>		
+	</div>
+</div>
+</body>
+</html>
